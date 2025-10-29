@@ -58,6 +58,31 @@ function displaySavedTasks(taskArray = tasks) {
         <span class="col">${task.deadline}</span>
         <span class="col">${task.status}</span>
     `;
+
+
+        // Create select for status
+        const statusSelect = document.createElement("select");
+        ["In Progress", "Completed"].forEach((status) => {
+          const option = document.createElement("option");
+          option.value = status;
+          option.textContent = status;
+          if (task.status === status) option.selected = true;
+          statusSelect.appendChild(option); // Append every option
+        });
+    
+        // Update task status when changed
+        statusSelect.addEventListener("change", () => {
+          task.status = statusSelect.value; 
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+          displaySavedTasks(); // Re-render
+        });
+    
+        // Append select to task item
+        const statusTd = document.createElement("span");
+        statusTd.className = "col";
+        statusTd.appendChild(statusSelect);
+        taskItem.appendChild(statusTd);
+    
     taskList.appendChild(taskItem);
   });
 }
