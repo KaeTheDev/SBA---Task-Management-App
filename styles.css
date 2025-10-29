@@ -55,8 +55,3 @@
     color: white;
     font-weight: bold;
 }
-
-/* Optional: alternating row colors */
-.taskList li:not(.table-header):nth-child(even) {
-    background-color: #f9f9f9;
-}
