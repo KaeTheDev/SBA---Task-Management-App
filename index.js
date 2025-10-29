@@ -52,12 +52,25 @@ function displaySavedTasks(taskArray = tasks) {
   // Loop through tasks and add them
   taskArray.forEach((task, index) => {
     let taskItem = document.createElement("li");
+    let today = new Date()
+    let taskDeadline = new Date(task.deadline)
+
     taskItem.innerHTML = `
         <span class="col">${task.taskName}</span>
         <span class="col">${task.category}</span>
         <span class="col">${task.deadline}</span>
-        <span class="col">${task.status}</span>
+    
     `;
+ // Status column
+ const statusCol = document.createElement("span");
+ statusCol.className = "col";
+
+    if(today > taskDeadline && task.status !== "Completed") {
+        const overdueStatus = document.createElement("span")
+        overdueStatus.textContent = "OVERDUE"
+        overdueStatus.style.color = "red"
+        taskItem.appendChild(overdueStatus)
+    }
         // Create select for status
         const statusSelect = document.createElement("select");
         ["In Progress", "Completed"].forEach((status) => {
@@ -73,12 +86,15 @@ function displaySavedTasks(taskArray = tasks) {
             updateTask(index, statusSelect.value);
         });
     
+        statusCol.appendChild(statusSelect);
+
         // Append select to task item
         const statusTd = document.createElement("span");
         statusTd.className = "col";
         statusTd.appendChild(statusSelect);
         taskItem.appendChild(statusTd);
     
+        taskItem.appendChild(statusCol);
     taskList.appendChild(taskItem);
   });
 }
