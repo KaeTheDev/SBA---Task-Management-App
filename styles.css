@@ -1,4 +1,4 @@
-#main {
+/* #main {
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -20,4 +20,67 @@
 .taskList {
     width: 100%;
     max-width: 600px;
+} */
+
+#main {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 20px; 
+    font-family: Arial, sans-serif;
+}
+
+#inputs {
+    display: flex;      
+    flex-direction: row;
+    gap: 10px;           
+}
+
+#filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Make the UL look like a table */
+.taskList {
+    width: 100%;
+    max-width: 600px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Each LI is a row */
+.taskList li {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+}
+
+/* Last row has no bottom border */
+.taskList li:last-child {
+    border-bottom: none;
+}
+
+/* Columns inside the row */
+.taskList .col {
+    flex: 1; /* distribute equally */
+    padding: 0 5px;
+}
+
+/* Header row styling */
+.table-header {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+}
+
+/* Optional: alternating row colors */
+.taskList li:not(.table-header):nth-child(even) {
+    background-color: #f9f9f9;
 }

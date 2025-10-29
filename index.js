@@ -1,11 +1,10 @@
 // Get the input fields and filters from the page
 
-let taskName = document.getElementById("taskName")        // Where user types the task name
-let category = document.getElementById("category")       // Where user types the task category
-let deadline = document.getElementById("deadline")       // Where user types the task deadline
-let statusFilter = document.getElementById("statusFilter") // Dropdown to filter tasks by status
-let categoryFilter = document.getElementById("categoryFilter") // Input to filter tasks by category
-
+let taskName = document.getElementById("taskName"); // Where user types the task name
+let category = document.getElementById("category"); // Where user types the task category
+let deadline = document.getElementById("deadline"); // Where user types the task deadline
+let statusFilter = document.getElementById("statusFilter"); // Dropdown to filter tasks by status
+let categoryFilter = document.getElementById("categoryFilter"); // Input to filter tasks by category
 
 // Get the button and list container
 let addTask = document.getElementById("addTask"); // Button that adds a new task
@@ -18,16 +17,49 @@ let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 function addNewTask() {
   // Make a new task object with the values from the inputs
   let task = {
-    taskName: taskName.value,  // The name typed by user
-    category: category.value,  // The category typed by user
-    deadline: deadline.value,  // The deadline typed by user
-    status: "In Progress",     // New tasks always start as "In Progress"
-  }
+    taskName: taskName.value, // The name typed by user
+    category: category.value, // The category typed by user
+    deadline: deadline.value, // The deadline typed by user
+    status: "In Progress", // New tasks always start as "In Progress"
+  };
   tasks.push(task); // Add the new task to the tasks array
   localStorage.setItem("tasks", JSON.stringify(tasks)); // Save the array in localStorage
 
-    // Clear the inputs so user can type a new task
-    taskName.value = "";
-    category.value = "";
-    deadline.value = "";
+  displaySavedTasks(tasks); // Show all tasks again, including the new one
+
+  // Clear the inputs so user can type a new task
+  taskName.value = "";
+  category.value = "";
+  deadline.value = "";
 }
+
+// Function to show tasks in the task list
+function displaySavedTasks(taskArray = tasks) {
+  taskList.innerHTML = ""; // Clear the list first so we don't duplicate tasks
+
+  // Keep the header row
+  // CREATE HEADER
+  const header = document.createElement("li"); // create a new li element
+  header.className = "table-header"; // add a class
+  header.innerHTML = `
+     <span class="col">Task Name</span>
+     <span class="col">Category</span>
+     <span class="col">Deadline</span>
+     <span class="col">Status</span>
+ `;
+  taskList.appendChild(header);
+
+  // Loop through tasks and add them
+  taskArray.forEach((task, index) => {
+    let taskItem = document.createElement("li");
+    taskItem.innerHTML = `
+        <span class="col">${task.taskName}</span>
+        <span class="col">${task.category}</span>
+        <span class="col">${task.deadline}</span>
+        <span class="col">${task.status}</span>
+    `;
+    taskList.appendChild(taskItem);
+  });
+}
+// Initial Render
+displaySavedTasks();
