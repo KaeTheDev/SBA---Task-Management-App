@@ -65,6 +65,8 @@ function displaySavedTasks(taskArray = tasks) {
  const statusCol = document.createElement("span");
  statusCol.className = "col";
 
+ // Conditional checks deadline date and completed status
+ // to see if OVERDUE should be added
     if(today > taskDeadline && task.status !== "Completed") {
         const overdueStatus = document.createElement("span")
         overdueStatus.textContent = "OVERDUE"
@@ -105,5 +107,27 @@ function updateTask(index, newStatus) {
     localStorage.setItem("tasks", JSON.stringify(tasks))
     displaySavedTasks()
 }
+
+// Filter tasks function
+function filterTasks() {
+    // Get selected status and category input
+    const selectedStatus = statusFilter.value
+    const categoryValue = categoryFilter.value.toLowerCase()
+
+
+  // Filter tasks based on what user picked or typed
+    const filtered = tasks.filter((task) => {
+        const statusMatch = selectedStatus === "All" || task.status === selectedStatus
+        const categoryMatch = task.category.toLowerCase().includes(categoryValue)
+        return statusMatch && categoryMatch
+    })
+
+    // Show the filtered tasks
+    displaySavedTasks(filtered);
+}
+// Event listeners for filters
+statusFilter.addEventListener("change", filterTasks)
+category.addEventListener("input", filterTasks)
+
 // Initial Render
 displaySavedTasks();
