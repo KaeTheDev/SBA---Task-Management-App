@@ -13,3 +13,21 @@ let taskList = document.getElementById("taskList"); // UL (unordered list) where
 
 // Try to get tasks from localStorage, if nothing there, start with empty array
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+// Function to add a new task
+function addNewTask() {
+  // Make a new task object with the values from the inputs
+  let task = {
+    taskName: taskName.value,  // The name typed by user
+    category: category.value,  // The category typed by user
+    deadline: deadline.value,  // The deadline typed by user
+    status: "In Progress",     // New tasks always start as "In Progress"
+  }
+  tasks.push(task); // Add the new task to the tasks array
+  localStorage.setItem("tasks", JSON.stringify(tasks)); // Save the array in localStorage
+
+    // Clear the inputs so user can type a new task
+    taskName.value = "";
+    category.value = "";
+    deadline.value = "";
+}
