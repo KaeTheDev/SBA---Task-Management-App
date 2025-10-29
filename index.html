@@ -8,6 +8,29 @@
     <title>Task Management App</title>
 </head>
 <body>
+    <main id="main">
+        <!-- Filters -->
+        <div id="filters">
+            <select id="statusFilter">
+              <option value="All">All</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          
+            <input id="categoryFilter" type="text" placeholder="Filter by category" />
+        </div>
+    
+        <!-- Inputs for new task -->
+        <div id="inputs">
+            <input id="taskName" type="text" placeholder="Task name">
+            <input id="category" type="text" placeholder="Category">
+            <input id="deadline" type="text" placeholder="MM/DD/YYYY">
+            <button id="addTask" onclick="addNewTask()">Add Task</button>
+        </div>
+                
+        <!-- Task list -->
+        <ul id="taskList" class="taskList"></ul>
+    </main>
     
 </body>
 </html>
